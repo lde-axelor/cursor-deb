@@ -17,7 +17,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y curl jq dpkg-deb
+        sudo apt-get install -y curl jq dpkg-dev
 
     - name: Build latest Cursor .deb package
       run: |
