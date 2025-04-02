@@ -130,7 +130,15 @@ elif [ -f "$EXTRACT_DIR/code.png" ]; then
     cp "$EXTRACT_DIR/code.png" "$DEB_DIR/usr/share/icons/hicolor/512x512/apps/cursor.png"
 else
     # Try to find an icon in the squashfs-root directory
-    ICON_PATH=$(find "$EXTRACT_DIR/squashfs-root" -name "*.png" | head -n 1)
+    # Using a safer method that avoids broken pipe errors
+    ICON_PATH=""
+    while IFS= read -r line; do
+        if [ -z "$ICON_PATH" ] && [ -f "$line" ]; then
+            ICON_PATH="$line"
+            break
+        fi
+    done < <(find "$EXTRACT_DIR/squashfs-root" -name "*.png" 2>/dev/null || true)
+    
     if [ -n "$ICON_PATH" ]; then
         cp "$ICON_PATH" "$DEB_DIR/usr/share/icons/hicolor/512x512/apps/cursor.png"
     else
