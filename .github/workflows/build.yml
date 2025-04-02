@@ -2,8 +2,8 @@ name: Build Cursor Debian Package
 
 on:
   schedule:
-    # Run weekly to check for new versions
-    - cron: '0 0 * * 0'
+    # Run every 3 days at midnight
+    - cron: '0 0 */3 * *'
   workflow_dispatch:
 
 jobs:

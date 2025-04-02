@@ -41,12 +41,19 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Check for required tools
-for cmd in curl jq dpkg-deb; do
+for cmd in curl jq; do
     if ! command -v $cmd &> /dev/null; then
         echo "Error: $cmd is required but not installed. Please install it."
         exit 1
     fi
 done
+
+# Ensure dpkg-deb is available (part of dpkg-dev package)
+if ! command -v dpkg-deb &> /dev/null; then
+    echo "Error: dpkg-deb is required but not installed."
+    echo "Install it with: sudo apt-get install dpkg-dev"
+    exit 1
+fi
 
 # Save current working directory
 ORIGINAL_PWD=$(pwd)
