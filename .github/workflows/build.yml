@@ -1,0 +1,45 @@
+name: Build Cursor Debian Package
+
+on:
+  schedule:
+    # Run weekly to check for new versions
+    - cron: '0 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl jq dpkg-deb
+
+    - name: Build latest Cursor .deb package
+      run: |
+        sudo ./convert-cursor-to-deb.sh
+        echo "CURSOR_VERSION=$(ls cursor-ide_*.deb | grep -oP 'cursor-ide_\K[0-9]+\.[0-9]+\.[0-9]+(?=_amd64\.deb)')" >> $GITHUB_ENV
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ env.CURSOR_VERSION }}
+        name: Cursor IDE v${{ env.CURSOR_VERSION }}
+        body: |
+          Cursor IDE v${{ env.CURSOR_VERSION }} packaged as a Debian (.deb) package
+          
+          ### Installation
+          ```
+          sudo dpkg -i cursor-ide_${{ env.CURSOR_VERSION }}_amd64.deb
+          sudo apt-get install -f  # Install dependencies if needed
+          ```
+        files: cursor-ide_${{ env.CURSOR_VERSION }}_amd64.deb
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
