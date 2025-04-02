@@ -1,6 +1,6 @@
 # Cursor IDE Debian Package Builder
 
-This repository contains a script to automatically download the latest Cursor IDE AppImage and convert it to a Debian package (.deb) for installation on Debian-based Linux distributions. A GitHub workflow will automatically upload the latest version of the package to the [releases page](https://github.com/jackinthebox52/cursor-deb/releases). (Weekly)
+A script to automatically download the latest Cursor IDE AppImage and convert it to a Debian package (.deb) for installation on Debian-based Linux distributions. A GitHub workflow will automatically upload the latest version of the package to the [releases page](https://github.com/jackinthebox52/cursor-deb/releases). (Weekly)
 
 ## Requirements
 
