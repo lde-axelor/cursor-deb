@@ -17,9 +17,9 @@ To build the latest version of Cursor IDE:
 sudo ./auto-convert.sh
 ```
 
-## Installing
+## Installing ()
 
-After building, install the generated package:
+After building, or downloading from releases, install the generated package:
 
 ```bash
 sudo dpkg -i cursor-ide_*_amd64.deb
