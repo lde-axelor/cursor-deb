@@ -47,7 +47,7 @@ sudo apt-get purge cursor-ide
 
 ## License
 
-This project (Not Cursor) is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Disclaimer
 
