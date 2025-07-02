@@ -7,7 +7,7 @@ set -e
 
 # Default settings
 KEEP_TEMP=false
-CURSOR_API_URL="https://www.cursor.com/api/download?platform=linux-x64&releaseTrack=stable"
+CURSOR_API_URL="https://cursor.com/api/download?platform=linux-x64&releaseTrack=stable"
 
 # Function to print usage
 print_usage() {
