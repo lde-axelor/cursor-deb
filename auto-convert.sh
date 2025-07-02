@@ -118,7 +118,7 @@ cp -r "$EXTRACT_DIR/squashfs-root/"* "$DEB_DIR/opt/cursor/"
 # Create launcher script
 cat > "$DEB_DIR/usr/bin/cursor" << EOF
 #!/bin/bash
-/opt/cursor/AppRun "\$@"
+/opt/cursor/AppRun --no-sandbox "\$@"
 EOF
 chmod +x "$DEB_DIR/usr/bin/cursor"
 
