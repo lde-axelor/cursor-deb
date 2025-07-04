@@ -452,8 +452,7 @@ Priority: optional
 Architecture: $ARCHITECTURE
 Installed-Size: $size
 Depends: libc6, libgtk-3-0, libxss1, libasound2, libdrm2, libxkbcommon0, libxcomposite1, libxdamage1, libxrandr2, libgbm1, libxft2, libxinerama1
-Recommends: git, nodejs, npm
-Maintainer: Cursor DEB Packager <cursor@auto-convert.local>
+Maintainer: Cursor DEB Packager <github@cursor-deb.pkg>
 Homepage: https://cursor.com
 Description: Cursor IDE - AI-first code editor
  Cursor is an AI-first code editor based on VSCode.
