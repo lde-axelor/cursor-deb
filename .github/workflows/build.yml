@@ -13,11 +13,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y curl jq dpkg-dev
 
     - name: Check if latest Cursor version already exists
       id: check_version
@@ -36,6 +31,12 @@ jobs:
           echo "Release v$LATEST_CURSOR_VERSION does not exist, proceeding with build"
           echo "skip_build=false" >> $GITHUB_OUTPUT
         fi
+      
+    - name: Install dependencies
+      if: steps.check_version.outputs.skip_build == 'false'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl jq dpkg-dev
 
     - name: Build latest Cursor .deb package
       if: steps.check_version.outputs.skip_build == 'false'
