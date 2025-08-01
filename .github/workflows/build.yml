@@ -18,25 +18,19 @@ jobs:
       id: check_version
       run: |
         # Get latest Cursor version from their official API
-        LATEST_CURSOR_VERSION=$(curl -s https://cursor.com/api/download?platform=linux-x64&releaseTrack=stable | jq -r .version)
-        echo "CURSOR_VERSION=$LATEST_CURSOR_VERSION" >> $GITHUB_ENV
+        CURSOR_VERSION=$(curl -s https://cursor.com/api/download?platform=linux-x64&releaseTrack=stable | jq -r .version)
+        echo "CURSOR_VERSION=$CURSOR_VERSION" >> $GITHUB_ENV
         
         # Check if this version already exists as a release in our repo
-        EXISTING_RELEASE=$(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/tags/v$LATEST_CURSOR_VERSION" | jq -r '.tag_name')
+        EXISTING_RELEASE=$(curl -s "https://api.github.com/repos/${{ github.repository }}/releases/tags/v$CURSOR_VERSION" | jq -r '.tag_name')
         
-        if [ "$EXISTING_RELEASE" = "v$LATEST_CURSOR_VERSION" ]; then
-          echo "Release v$LATEST_CURSOR_VERSION already exists, skipping build and release steps"
+        if [ "$EXISTING_RELEASE" = "v$CURSOR_VERSION" ]; then
+          echo "Release v$CURSOR_VERSION already exists, skipping build and release steps"
           echo "skip_build=true" >> $GITHUB_OUTPUT
         else
-          echo "Release v$LATEST_CURSOR_VERSION does not exist, proceeding with build"
+          echo "Release v$CURSOR_VERSION does not exist, proceeding with build"
           echo "skip_build=false" >> $GITHUB_OUTPUT
         fi
-      
-    - name: Install dependencies
-      if: steps.check_version.outputs.skip_build == 'false'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y curl jq dpkg-dev
 
     - name: Build latest Cursor .deb package
       if: steps.check_version.outputs.skip_build == 'false'
@@ -46,7 +40,7 @@ jobs:
     - name: Create Release
       if: steps.check_version.outputs.skip_build == 'false'
       id: create_release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: v${{ env.CURSOR_VERSION }}
         name: Cursor IDE v${{ env.CURSOR_VERSION }}
@@ -60,5 +54,3 @@ jobs:
         files: cursor-ide_${{ env.CURSOR_VERSION }}_amd64.deb
         draft: false
         prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
