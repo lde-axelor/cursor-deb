@@ -1,6 +1,6 @@
 # Cursor IDE Debian Package Builder
 
-A script to automatically download the latest Cursor IDE AppImage and convert it to a Debian package (.deb) for installation on Debian-based Linux distributions. A GitHub workflow will automatically upload the latest version of the package to the [releases page](https://github.com/jackinthebox52/cursor-deb/releases). (Every few days)
+A script to automatically download the latest Cursor IDE AppImage and convert it to a Debian package (.deb) for installation on Debian-based Linux distributions. A GitHub workflow will automatically upload the latest version of the package to the [releases page](https://github.com/lde-axelor/cursor-deb/releases). (Every days)
 
 ## Requirements
 
@@ -14,21 +14,15 @@ A script to automatically download the latest Cursor IDE AppImage and convert it
 To build the latest version of Cursor IDE:
 
 ```bash
-sudo ./auto-convert.sh
+./auto-convert.sh
 ```
 
-## Installing ()
+## Installing
 
 After building, or downloading from releases, install the generated package:
 
 ```bash
-sudo dpkg -i cursor-ide_*_amd64.deb
-```
-
-If there are dependency issues:
-
-```bash
-sudo apt-get install -f
+sudo apt install ./cursor-ide_*_amd64.deb
 ```
 
 ## Uninstalling
@@ -36,13 +30,13 @@ sudo apt-get install -f
 To remove the package:
 
 ```bash
-sudo apt-get remove cursor-ide
+sudo apt remove cursor-ide
 ```
 
 To completely remove the package and all configuration files:
 
 ```bash
-sudo apt-get purge cursor-ide
+sudo apt purge cursor-ide
 ```
 
 ## License
