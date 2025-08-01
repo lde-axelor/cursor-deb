@@ -25,6 +25,22 @@ After building, or downloading from releases, install the generated package:
 sudo apt install ./cursor-ide_*_amd64.deb
 ```
 
+## Updating
+
+A fish function is provided to update the cursor IDE to the latest version.
+
+Copy the cursor_update.fish file to your fish config directory.
+
+```bash
+cp cursor_update.fish ~/.config/fish/functions/cursor_update.fish
+```
+
+Then, you can update the cursor IDE to the latest version by running the following command:
+
+```bash
+cursor_update
+```
+
 ## Uninstalling
 
 To remove the package:
