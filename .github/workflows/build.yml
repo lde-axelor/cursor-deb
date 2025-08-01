@@ -18,7 +18,7 @@ jobs:
       id: check_version
       run: |
         # Get latest Cursor version from their official API
-        CURSOR_VERSION=$(curl -s https://cursor.com/api/download?platform=linux-x64&releaseTrack=stable | jq -r .version)
+        CURSOR_VERSION=$(curl -s "https://cursor.com/api/download?platform=linux-x64&releaseTrack=stable" | jq -r .version)
         echo "CURSOR_VERSION=$CURSOR_VERSION" >> $GITHUB_ENV
         
         # Check if this version already exists as a release in our repo
